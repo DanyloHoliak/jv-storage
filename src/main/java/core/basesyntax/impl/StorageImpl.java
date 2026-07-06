@@ -5,15 +5,17 @@ import java.util.Objects;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
     private static final int MAX_ITEMS_NUMBER = 10;
-    private static final int MIN = 0;
-    private int size = MIN;
-    private Object[] keys = new Object[MAX_ITEMS_NUMBER];
-    private Object[] values = new Object[MAX_ITEMS_NUMBER];
+    private Object[] keys;
+    private Object[] values;
+    private int size;
 
     @Override
     public void put(K key, V value) {
+        keys = new Object[MAX_ITEMS_NUMBER];
+        values = new Object[MAX_ITEMS_NUMBER];
+        size = 0;
         for (int i = 0; i < size; i++) {
-            if (Objects.equals(keys[i], key)) {
+            if ((keys[i] == null && key == null) || (keys[i] != null && keys[i].equals(key))) {
                 values[i] = value;
                 return;
             }
@@ -26,7 +28,7 @@ public class StorageImpl<K, V> implements Storage<K, V> {
     @Override
     public V get(K key) {
         for (int i = 0; i < size; i++) {
-            if (Objects.equals(keys[i], key)) {
+            if ((keys[i] == null && key == null) || (keys[i] != null && keys[i].equals(key))) {
                 return (V) values[i];
             }
         }
