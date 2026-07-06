@@ -2,11 +2,12 @@ package core.basesyntax.impl;
 
 import core.basesyntax.Storage;
 
-
 public class StorageImpl<K, V> implements Storage<K, V> {
-    private  int size = 0;
-    private Object[] keys = new Object[10];
-    private Object[] values = new Object[10];
+    private static final int MAX_ITEMS_NUMBER = 10;
+    private int size = 0;
+    private Object[] keys = new Object[MAX_ITEMS_NUMBER];
+    private Object[] values = new Object[MAX_ITEMS_NUMBER];
+
     @Override
     public void put(K key, V value) {
         for (int i = 0; i < size; i++) {
